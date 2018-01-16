@@ -9,8 +9,12 @@ package br.edu.ifnmg.psc.MercadoOfertas.Aplicacao;
  *
  * @author Wesley
  */
-public interface Entidade {
-     void setId(long id);
-    long getId();
+public class OfertaEmprego extends Cadastro{
+    
+  @Override
+    public String toString() {
+        return nome;
+    }
+    
     
 }
