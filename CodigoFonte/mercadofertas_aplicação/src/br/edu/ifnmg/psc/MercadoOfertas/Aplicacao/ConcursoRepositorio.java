@@ -9,12 +9,6 @@ package br.edu.ifnmg.psc.MercadoOfertas.Aplicacao;
  *
  * @author Wesley
  */
-public class Concurso extends Cadastro implements Entidade{
-    
-   
-    @Override
-    public String toString() {
-        return nome;
-    }
+public interface ConcursoRepositorio extends Repositorio<Concurso>{
     
 }

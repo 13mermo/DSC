@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Wesley
  */
-public class Empresa extends Cliente{
+public class Empresa extends Cliente implements Entidade{
     private String cnpj;
     private OfertaEmprego ofertaemprego;
     private Concurso concurso;

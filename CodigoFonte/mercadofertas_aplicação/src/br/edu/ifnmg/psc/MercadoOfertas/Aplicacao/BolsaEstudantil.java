@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  *
  * @author Wesley
  */
-public class BolsaEstudantil extends Cadastro{
+public class BolsaEstudantil extends Cadastro implements Entidade{
      private BigDecimal valor;
 
     public BigDecimal getValor() {

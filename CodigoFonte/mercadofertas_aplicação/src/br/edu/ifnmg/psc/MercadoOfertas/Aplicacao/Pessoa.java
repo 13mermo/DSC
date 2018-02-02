@@ -11,13 +11,13 @@ import java.util.regex.Pattern;
  *
  * @author Wesley
  */
-public class Pessoa extends Cliente{
+public class Pessoa extends Cliente implements Entidade{
     
     private int idade;
     private String cpf;
     private String nacionalidade;
     private static Pattern regex_cpf = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$");
-    private Curriculo curriculo;
+    Curriculo curriculo;
 
     public Pessoa(int idade, String cpf, String nacionalidade, Curriculo curriculo) {
         this.idade = idade;
@@ -34,7 +34,7 @@ public class Pessoa extends Cliente{
     }
 
     public void setIdade(int idade)throws ViolacaoRegraDeNegocio {
-        if(idade == 0 || idade < 16)
+        if(idade == 0 || idade < 5)
             throw new ViolacaoRegraDeNegocio("A idade nao pode ser 0 ou menor que 16 anos !");
         this.idade = idade;
     }

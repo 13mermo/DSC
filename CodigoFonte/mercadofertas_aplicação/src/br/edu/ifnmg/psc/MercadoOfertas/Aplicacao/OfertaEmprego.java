@@ -9,7 +9,7 @@ package br.edu.ifnmg.psc.MercadoOfertas.Aplicacao;
  *
  * @author Wesley
  */
-public class OfertaEmprego extends Cadastro{
+public class OfertaEmprego extends Cadastro implements Entidade{
     
   @Override
     public String toString() {

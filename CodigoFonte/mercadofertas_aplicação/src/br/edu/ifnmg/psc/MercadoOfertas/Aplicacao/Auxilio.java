@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  *
  * @author Wesley
  */
-public class Auxilio extends Cadastro{
+public class Auxilio extends Cadastro implements Entidade{
     private BigDecimal valor;
 
     public BigDecimal getValor() {

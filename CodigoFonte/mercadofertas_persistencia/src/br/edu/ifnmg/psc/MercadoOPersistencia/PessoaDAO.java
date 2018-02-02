@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifnmg.psc.MercadoOfertas.Aplicacao;
+package br.edu.ifnmg.psc.MercadoOPersistencia;
 
 /**
  *
  * @author Wesley
  */
-public class Concurso extends Cadastro implements Entidade{
-    
-   
-    @Override
-    public String toString() {
-        return nome;
-    }
+public class PessoaDAO{
     
 }

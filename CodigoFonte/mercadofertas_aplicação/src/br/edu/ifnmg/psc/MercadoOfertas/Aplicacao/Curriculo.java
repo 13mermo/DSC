@@ -11,18 +11,28 @@ import java.util.Objects;
  *
  * @author Wesley
  */
-public class Curriculo {
-    private int id;
+public class Curriculo implements Entidade {
+    
+    private long id;
     private String descricao;
 
     public Curriculo(int id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
+    public Curriculo(){
+    
+    }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+  
 
     public void setId(int id) {
         this.id = id;
@@ -38,9 +48,9 @@ public class Curriculo {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + this.id;
-        hash = 53 * hash + Objects.hashCode(this.descricao);
+        int hash = 5;
+        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 29 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
@@ -64,5 +74,13 @@ public class Curriculo {
         }
         return true;
     }
+
+    
+
+    @Override
+    public String toString() {
+        return  "descricao: " + descricao ;
+    }
+    
     
 }
