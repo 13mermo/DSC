@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.psc.MercadoOPersistencia;
 
+
 import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.Entidade;
 import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.Repositorio;
 import java.sql.PreparedStatement;
@@ -15,11 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Wesley
- */
-public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>{
+
+public abstract class DAOGenerico<T extends Entidade> implements Repositorio<T> {
+   
 
     protected abstract String consultaAbrir();
     protected abstract String consultaInsert();
@@ -31,33 +30,33 @@ public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>
     protected abstract String carregaParametrosBusca(T obj);
     protected abstract T carregaObjeto(ResultSet dados);
     
-    @Override
+      @Override
     public boolean Salvar(T obj) {
         try {
             String sql = "";
             
-            // Verifica se o objeto jÃ¡ foi salvo no BD
+            // Verifica se o objeto já foi salvo no BD
             if(obj.getId() == 0) {
                 
-                //Se o id == 0 entÃ£o pega a consulta de inserÃ§Ã£o
+                //Se o id == 0 então pega a consulta de inserção
                 sql = this.consultaInsert();
                 
             } else {
                 
-                //Se o id > 0 entÃ£o pega a consulta de atualizaÃ§Ã£o
+                //Se o id > 0 então pega a consulta de atualização
                 sql = this.consultaUpdate();
             }
             
-            // Utilizando a conexÃ£o existente cria um Statement (comando)
+            // Utilizando a conexão existente cria um Statement (comando)
             PreparedStatement consulta = BD.getConexao().prepareStatement(sql);
             
-            // Carrega os parÃ¢metros da consulta
+            // Carrega os parâmetros da consulta
             this.carregaParametros(obj, consulta);
             
             // Executa a consulta
             boolean resultado = consulta.executeUpdate() > 0;
             
-            // Se a consulta obteve Ãªxito e o objeto acabou de ser inserido
+            // Se a consulta obteve êxito e o objeto acabou de ser inserido
             // if(resultado && obj.getId() == 0){
                 
             //} else 
@@ -75,10 +74,10 @@ public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>
             // Pega a consulta para abrir (select)
             String sql = this.consultaAbrir();
             
-            // Utilizando a conexÃ£o aberta, cria um Statement (comando)
+            // Utilizando a conexão aberta, cria um Statement (comando)
             PreparedStatement consulta = BD.getConexao().prepareStatement(sql);
             
-            // Coloca o parÃ¢metro da consulta (id)
+            // Coloca o parâmetro da consulta (id)
             consulta.setLong(1, id);
             
             // Executa a consulta select e recebe os dados de retorno
@@ -101,10 +100,10 @@ public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>
             // Pega a consulta para abrir (select)
             String sql = this.consultaDelete();
             
-            // Utilizando a conexÃ£o aberta, cria um Statement (comando)
+            // Utilizando a conexão aberta, cria um Statement (comando)
             PreparedStatement consulta = BD.getConexao().prepareStatement(sql);
             
-            // Coloca o parÃ¢metro da consulta (id)
+            // Coloca o parâmetro da consulta (id)
             consulta.setLong(1, obj.getId());
             
             // Executa a consulta
@@ -131,7 +130,7 @@ public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>
 
     @Override
     public List<T> Buscar(T filtro) {
-        // Cria a lista que conterÃ¡ o resultado da busca
+        // Cria a lista que conterá o resultado da busca
         List<T> resultado = new ArrayList<>();
         
         try {
@@ -148,7 +147,7 @@ public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>
             if(!where.isEmpty())
                 sql += " where " + where;
             
-            // Utilizando a conexÃ£o aberta, cria um Statement (comando)
+            // Utilizando a conexão aberta, cria um Statement (comando)
             PreparedStatement consulta = BD.getConexao().prepareStatement(sql);    
             
             // Executa a consulta select e recebe os dados de retorno
@@ -170,5 +169,7 @@ public abstract class DAOGenerico<T extends Entidade > implements Repositorio<T>
         
         return resultado;
     }
+    
+    
     
 }

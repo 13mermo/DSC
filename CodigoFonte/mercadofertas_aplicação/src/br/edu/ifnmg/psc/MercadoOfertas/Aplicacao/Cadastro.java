@@ -38,9 +38,9 @@ public abstract class Cadastro {
         return nome;
     }
 
-    public void setNome(String nome) throws ViolacaoRegraDeNegocio {
+    public void setNome(String nome) throws ViolacaoRegraNegocioException {
         if(nome == null || nome.isEmpty() || nome.length() < 3 || nome.length() > 200)
-            throw new ViolacaoRegraDeNegocio("O nome deve conter entre 3 e 200 caracteres!");
+            throw new ViolacaoRegraNegocioException("O nome deve conter entre 3 e 200 caracteres!");
         this.nome = nome;
     }
 
@@ -48,9 +48,9 @@ public abstract class Cadastro {
         return edital;
     }
 
-    public void setEdital(String edital)  throws ViolacaoRegraDeNegocio {
+    public void setEdital(String edital)  throws ViolacaoRegraNegocioException {
         if(edital == null || edital.isEmpty() || edital.length() < 50 || edital.length() > 20000)
-            throw new ViolacaoRegraDeNegocio("O edital deve conter entre 50 e 20000 caracteres!");
+            throw new ViolacaoRegraNegocioException("O edital deve conter entre 50 e 20000 caracteres!");
         this.edital = edital;
     }
 
@@ -58,9 +58,9 @@ public abstract class Cadastro {
         return qtd;
     }
 
-    public void setQtd(int qtd) throws ViolacaoRegraDeNegocio {
+    public void setQtd(int qtd) throws ViolacaoRegraNegocioException {
         if(qtd == 0 || qtd < 0)
-            throw new ViolacaoRegraDeNegocio("Quantidade dever ser 0 ou menor que 0!");
+            throw new ViolacaoRegraNegocioException("Quantidade dever ser 0 ou menor que 0!");
         this.qtd = qtd;
     }
 
@@ -68,9 +68,9 @@ public abstract class Cadastro {
         return descricao;
     }
 
-    public void setDescricao(String descricao)throws ViolacaoRegraDeNegocio {
+    public void setDescricao(String descricao)throws ViolacaoRegraNegocioException {
         if(descricao == null || descricao.isEmpty() || descricao.length() < 50 || descricao.length() > 200)
-            throw new ViolacaoRegraDeNegocio("Descrição nao pode conter menos de 10 caracteres ou mais que 200!");
+            throw new ViolacaoRegraNegocioException("Descrição nao pode conter menos de 10 caracteres ou mais que 200!");
         this.descricao = descricao;
     }
 

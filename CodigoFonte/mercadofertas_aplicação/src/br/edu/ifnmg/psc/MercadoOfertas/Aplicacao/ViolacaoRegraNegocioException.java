@@ -5,17 +5,13 @@
  */
 package br.edu.ifnmg.psc.MercadoOfertas.Aplicacao;
 
-import java.util.List;
-
 /**
  *
- * @author petronio
+ * @author Bruno
  */
-public interface Repositorio<T> {
-    boolean Salvar(T obj);
-    T Abrir(long id);
-    boolean Apagar(T obj);
-    List<T> Buscar(T filtro);
-    
+public class ViolacaoRegraNegocioException extends Exception{
+    public ViolacaoRegraNegocioException(String message){
+        super(message);
+    }
     
 }

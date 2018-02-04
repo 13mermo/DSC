@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.edu.ifnmg.psc.MercadoOPersistencia;
 
 import java.io.FileNotFoundException;
@@ -12,10 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 /**
  *
- * @author wesley
+ * @author petronio
  */
 public class BD {
     
@@ -30,13 +33,13 @@ public class BD {
             
             prop.load(arquivo);
             
-            // Se a conexÃ£o ainda nÃ£o estiver iniciada
+            // Se a conexão ainda não estiver iniciada
             if(conexao == null){
                 
-                // Carrega o driver do MySQL na memÃ³ria
+                // Carrega o driver do MySQL na memória
                 Class.forName(prop.getProperty("BDDRIVER"));
                 
-                // o Gerenciador de Drivers abre uma conexÃ£o com o SGBD a partir da connection string
+                // o Gerenciador de Drivers abre uma conexão com o SGBD a partir da connection string
                 conexao = DriverManager.getConnection(prop.getProperty("BDURL"), 
                         prop.getProperty("BDUSER"), prop.getProperty("BDPWD"));
             }   

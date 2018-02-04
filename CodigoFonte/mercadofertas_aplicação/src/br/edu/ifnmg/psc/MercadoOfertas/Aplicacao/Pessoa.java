@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author Wesley
  */
-public class Pessoa extends Cliente implements Entidade{
+public class Pessoa extends DadosGenericos implements Entidade{
     
     private int idade;
     private String cpf;
@@ -19,23 +19,23 @@ public class Pessoa extends Cliente implements Entidade{
     private static Pattern regex_cpf = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$");
     Curriculo curriculo;
 
-    public Pessoa(int idade, String cpf, String nacionalidade, Curriculo curriculo) {
-        this.idade = idade;
-        this.cpf = cpf;
-        this.nacionalidade = nacionalidade;
-        this.curriculo = curriculo;
-    }
+ 
 
+    public Pessoa(  long id,String nome,int telefone, String cep,String bairro,String rua,int numero,int idade, String cpf, String nacionalidade, Curriculo curriculo) {
+        super(id,nome,telefone,cep,bairro,rua,numero);
+    }
+    
     public Pessoa() {
+       
     }
 
     public int getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade)throws ViolacaoRegraDeNegocio {
+    public void setIdade(int idade)throws ViolacaoRegraNegocioException {
         if(idade == 0 || idade < 5)
-            throw new ViolacaoRegraDeNegocio("A idade nao pode ser 0 ou menor que 16 anos !");
+            throw new ViolacaoRegraNegocioException("A idade nao pode ser 0 ou menor que 16 anos !");
         this.idade = idade;
     }
       public String getCpf() {
@@ -44,10 +44,10 @@ public class Pessoa extends Cliente implements Entidade{
         return cpf;
     }
 
-    public void setCpf(String cpf) throws ViolacaoRegraDeNegocio {
+    public void setCpf(String cpf) throws ViolacaoRegraNegocioException {
         Matcher verificador = regex_cpf.matcher(cpf);
         if(cpf == null || cpf.isEmpty() || ! verificador.matches())
-            throw new ViolacaoRegraDeNegocio("O CPF deve estar no formato ###.###.###-##!");
+            throw new ViolacaoRegraNegocioException("O CPF deve estar no formato ###.###.###-##!");
         this.cpf = cpf.replace(".", "").replace("-", "");
     }  
 
@@ -55,9 +55,9 @@ public class Pessoa extends Cliente implements Entidade{
         return nacionalidade;
     }
 
-    public void setNacionalidade(String nacionalidade) throws ViolacaoRegraDeNegocio {
+    public void setNacionalidade(String nacionalidade) throws ViolacaoRegraNegocioException {
         if(nacionalidade == null || nacionalidade.isEmpty() || nacionalidade.length() < 3 || nacionalidade.length() > 200)
-            throw new ViolacaoRegraDeNegocio("A nacionalidade deve conter entre 3 e 200 caracteres!");
+            throw new ViolacaoRegraNegocioException("A nacionalidade deve conter entre 3 e 200 caracteres!");
         this.nacionalidade = nacionalidade;
     }
 

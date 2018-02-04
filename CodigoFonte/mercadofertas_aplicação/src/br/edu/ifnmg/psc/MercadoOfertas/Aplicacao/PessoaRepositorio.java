@@ -7,7 +7,7 @@ package br.edu.ifnmg.psc.MercadoOfertas.Aplicacao;
 
 /**
  *
- * @author Wesley
+ * @author petronio
  */
 public interface PessoaRepositorio extends Repositorio<Pessoa> {
     
