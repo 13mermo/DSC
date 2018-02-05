@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author petronio
+ * @author wesley
  */
 public class BD {
     
@@ -46,13 +46,9 @@ public class BD {
             return conexao;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch ( ClassNotFoundException ex) {
+        } catch ( ClassNotFoundException | SQLException | IOException ex) {
             Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
-         } catch ( SQLException ex) {
-            Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-            Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+         } 
         
         return null;
     }

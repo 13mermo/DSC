@@ -38,6 +38,7 @@ public class Pessoa extends DadosGenericos implements Entidade{
             throw new ViolacaoRegraNegocioException("A idade nao pode ser 0 ou menor que 16 anos !");
         this.idade = idade;
     }
+    @Override
       public String getCpf() {
         if(cpf != null)
             return cpf.substring(0,3)+"."+cpf.substring(3,6)+"."+cpf.substring(6,9)+"-"+cpf.substring(9,11);
@@ -46,8 +47,8 @@ public class Pessoa extends DadosGenericos implements Entidade{
 
     public void setCpf(String cpf) throws ViolacaoRegraNegocioException {
         Matcher verificador = regex_cpf.matcher(cpf);
-        if(cpf == null || cpf.isEmpty() || ! verificador.matches())
-            throw new ViolacaoRegraNegocioException("O CPF deve estar no formato ###.###.###-##!");
+        if(cpf == null || cpf.isEmpty() || !verificador.matches())
+//            throw new ViolacaoRegraNegocioException("O CPF deve estar no formato ###.###.###-##!");
         this.cpf = cpf.replace(".", "").replace("-", "");
     }  
 

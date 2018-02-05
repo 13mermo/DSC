@@ -6,9 +6,8 @@
 package br.edu.ifnmg.psc.MercadoOPersistencia;
 
 
-
-import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.Pessoa;
-import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.PessoaRepositorio;
+import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.Escola;
+import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.EscolaRepositorio;
 import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.ViolacaoRegraNegocioException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,46 +17,37 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author wesley
+ * @author Wesley
  */
-public class PessoaFisicaDAO extends DAOGenerico<Pessoa> implements PessoaRepositorio {
+public class EscolaDAO extends DAOGenerico<Escola> implements EscolaRepositorio {
 
-    
-    
-    
     @Override
     protected String consultaAbrir() {
-        return "select * from Pessoa where id = ?";
+         return "select * from Escola where id = ?";
     }
 
     @Override
     protected String consultaInsert() {
-        return "insert into Pessoa (nome, telefone, cep, bairro, rua, numero, cpf, nacionalidade) values(?,?,?,?,?,?,?,?)";
+        return "insert into Escola (nome, telefone, cep, bairro, rua, numero, cnpj) values(?,?,?,?,?,?,?)";
     }
 
     @Override
     protected String consultaUpdate() {
-        return "update Pessoa nome=?, telefone=?, cep=?, bairro=?, rua=?, numero=?, cpf=?, nacionalidade=? where id = ?";
+        return "update Escola nome=?, telefone=?, cep=?, bairro=?, rua=?, numero=?, cnpj=? where id = ?";
     }
 
     @Override
     protected String consultaDelete() {
-        return "delete from Pessoa where id = ?";
+          return "delete from Escola where id = ?";
     }
 
     @Override
     protected String consultaBuscar() {
-        return "select * from Pessoa "; 
+         return "select * from Escola "; 
     }
-    
-    /**
-     *
-     * @param obj
-     * @return
-     */
-    @Override
-    protected String carregaParametrosBusca(Pessoa obj){
-        String sql = "";
+@Override
+    protected String carregaParametrosBusca(Escola obj) {
+     String sql = "";
         
         if(obj.getId() > 0)
             sql = this.filtrarPor(sql, "id", Long.toString( obj.getId() ));
@@ -65,37 +55,31 @@ public class PessoaFisicaDAO extends DAOGenerico<Pessoa> implements PessoaReposi
         if(obj.getNome() != null && !obj.getNome().isEmpty())
             sql = this.filtrarPor(sql, "nome", obj.getNome());
         
-        if(obj.getCpf() != null && !obj.getCpf().isEmpty())
-            sql = this.filtrarPor(sql, "cpf", obj.getCpf().replace(".", "").replace("-", ""));        
+        if(obj.getCnpj() != null && !obj.getCnpj().isEmpty())
+            sql = this.filtrarPor(sql, "cnpj", obj.getCnpj());        
         
         return sql;
     }
-
-    
     @Override
-    protected void carregaParametros(Pessoa obj, PreparedStatement consulta) {
-        try {
+    protected void carregaParametros(Escola obj, PreparedStatement consulta) {
+       try {
           consulta.setString(1, obj.getNome());
           consulta.setInt(2, obj.getTelefone());
           consulta.setString(3, obj.getCep());
           consulta.setString(4, obj.getBairro());
           consulta.setString(5, obj.getRua());
           consulta.setInt(6, obj.getNumero());
-          consulta.setString(7, obj.getCpf().replace(".", "").replace("-", ""));
-          consulta.setString(8, obj.getNacionalidade());
+          consulta.setString(7, obj.getCnpj());
         } catch (SQLException ex) {
             Logger.getLogger(PessoaFisicaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-        
-        
-        
     }
 
-   
+    
+
     @Override
-    protected Pessoa carregaObjeto(ResultSet dados) {
-        Pessoa obj = new Pessoa();
+    protected Escola carregaObjeto(ResultSet dados) {
+       Escola obj = new Escola();
         try {
             obj.setId(dados.getLong(1));
             obj.setNome(dados.getString(2));
@@ -104,8 +88,7 @@ public class PessoaFisicaDAO extends DAOGenerico<Pessoa> implements PessoaReposi
             obj.setBairro(dados.getString(5));
             obj.setRua(dados.getString(6));
             obj.setNumero(dados.getInt(7));
-            obj.setCpf(dados.getString(8));
-            obj.setNacionalidade(dados.getString(9));
+            obj.setCnpj(dados.getString(8));
             return obj;
         } catch (SQLException | ViolacaoRegraNegocioException ex) {
             Logger.getLogger(PessoaFisicaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,7 +96,5 @@ public class PessoaFisicaDAO extends DAOGenerico<Pessoa> implements PessoaReposi
         return null;
     }
 
-    
-    
     
 }
