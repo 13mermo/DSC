@@ -77,7 +77,7 @@ public class BuscarPessoa extends FormBuscar<Pessoa> {
 
             },
             new String [] {
-                "ID", "Nome", "CPF"
+                "ID", "Nome", "CPF", "Telefone"
             }
         ));
         jScrollPane1.setViewportView(tabResultado);

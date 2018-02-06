@@ -13,12 +13,12 @@ public abstract class Cadastro {
    protected long id;
    protected String nome;
    protected String edital;
-   protected int qtd;
+   protected String qtd;
    protected String descricao;
    
     public Cadastro(){
     }
-    public Cadastro(long id, String nome, String edital, int qtd, String descricao) {
+    public Cadastro(long id, String nome, String edital, String qtd, String descricao) {
         this.id = id;
         this.nome = nome;
         this.edital = edital;
@@ -49,18 +49,18 @@ public abstract class Cadastro {
     }
 
     public void setEdital(String edital)  throws ViolacaoRegraNegocioException {
-        if(edital == null || edital.isEmpty() || edital.length() < 50 || edital.length() > 20000)
+        if(edital == null || edital.isEmpty() || edital.length() < 5 || edital.length() > 20000)
             throw new ViolacaoRegraNegocioException("O edital deve conter entre 50 e 20000 caracteres!");
         this.edital = edital;
     }
 
-    public int getQtd() {
+    public String getQtd() {
         return qtd;
     }
 
-    public void setQtd(int qtd) throws ViolacaoRegraNegocioException {
-        if(qtd == 0 || qtd < 0)
-            throw new ViolacaoRegraNegocioException("Quantidade dever ser 0 ou menor que 0!");
+    public void setQtd(String qtd) throws ViolacaoRegraNegocioException {
+        if(qtd == null )
+            throw new ViolacaoRegraNegocioException("Quantidade nao deve ser vazio!");
         this.qtd = qtd;
     }
 
@@ -69,8 +69,8 @@ public abstract class Cadastro {
     }
 
     public void setDescricao(String descricao)throws ViolacaoRegraNegocioException {
-        if(descricao == null || descricao.isEmpty() || descricao.length() < 50 || descricao.length() > 200)
-            throw new ViolacaoRegraNegocioException("Descrição nao pode conter menos de 10 caracteres ou mais que 200!");
+        if(descricao == null || descricao.isEmpty() || descricao.length() < 5 || descricao.length() > 200)
+            throw new ViolacaoRegraNegocioException("Descrição nao pode conter menos de 5 caracteres ou mais que 200!");
         this.descricao = descricao;
     }
 
@@ -80,7 +80,7 @@ public abstract class Cadastro {
         hash = 43 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 43 * hash + Objects.hashCode(this.nome);
         hash = 43 * hash + Objects.hashCode(this.edital);
-        hash = 43 * hash + this.qtd;
+        hash = 43 * hash + Objects.hashCode(this.qtd);
         hash = 43 * hash + Objects.hashCode(this.descricao);
         return hash;
     }

@@ -51,7 +51,6 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
         salvar = new javax.swing.JButton();
         nacionalidade = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cpf = new javax.swing.JFormattedTextField();
         cep = new javax.swing.JTextField();
         telefone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -59,6 +58,7 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
         nome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        cpf = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -70,6 +70,11 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(100, 100, 100));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Bairro:");
@@ -90,13 +95,6 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("CPF:");
-
-        try {
-            cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        cpf.setText("  ");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("CEP:");
@@ -126,7 +124,6 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(salvar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(nacionalidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(cpf, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(cep, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(telefone, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -134,20 +131,21 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(nome, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(cpf, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(417, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(430, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salvar)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(178, 178, 178))
+                        .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(172, 172, 172))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -199,7 +197,7 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addComponent(salvar)
                 .addContainerGap())
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,12 +242,16 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-        try {
-            preencherParametros();
-        } catch (ViolacaoRegraNegocioException | ParseException ex) {
-            Logger.getLogger(CadastrarPessoas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       try {
+        preencherParametros();
         salvar();
+    } catch (ViolacaoRegraNegocioException ex) {
+       JOptionPane.showMessageDialog(this, ex.getMessage(), "Novo usuário", JOptionPane.ERROR_MESSAGE);
+
+    }  catch (ParseException ex) {
+           Logger.getLogger(CadastrarPessoas.class.getName()).log(Level.SEVERE, null, ex);
+       }
+      
 
     }//GEN-LAST:event_salvarActionPerformed
 
@@ -257,12 +259,16 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel att;
     private javax.swing.JTextField bairro;
     private javax.swing.JTextField cep;
-    private javax.swing.JFormattedTextField cpf;
+    private javax.swing.JTextField cpf;
     private javax.swing.JLabel iff;
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -280,23 +286,83 @@ public class CadastrarPessoas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
 private void preencherParametros() throws ViolacaoRegraNegocioException , ParseException{
-    p.setNome(nome.getText());
-    p.setTelefone(new Integer(telefone.getText()));
-    p.setCep(cep.getText());
-    p.setBairro(bairro.getText());
-    p.setRua(rua.getText());
-    p.setNumero(new Integer(numero.getText()));
-    p.setCpf(cpf.getText());
-    p.setNacionalidade(nacionalidade.getText());
+     
+            
+            if (nome.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("Nome!");
+            }
+            else{
+                p.setNome(nome.getText());
+            }
+           
+            if (telefone.getText().equals("")) {
+               throw new ViolacaoRegraNegocioException ("telefone!");
+           }
+           else{
+               p.setTelefone(telefone.getText());
+            }
+            
+            if (cep.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("cep!");
+            }
+            else{
+               p.setCep(cep.getText());
+            }
+            
+            if (cep.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("Bairro!");
+            }
+            else{
+               p.setBairro(bairro.getText());
+            }
+            
+            if (rua.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("rua!");
+            }
+            else{
+               p.setRua(rua.getText());
+            }
+           
+             if (numero.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("numero!");
+            }
+            else{
+               p.setNumero(numero.getText());
+            }
+           
+             if (cpf.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("cpf!");
+            }
+            else{
+               p.setCpf(cpf.getText());
+            }
+               if (nacionalidade.getText().equals("")) {
+                throw new ViolacaoRegraNegocioException ("nacionalidade!");
+            }
+            else{
+               p.setNacionalidade(nacionalidade.getText());
+            }
+           
+        
 }
+     private void limparCampos() {
+       nome.setText("");
+       numero.setText("");
+       cpf.setText("");
+       cep.setText("");
+       rua.setText("");
+       bairro.setText("");
+       telefone.setText("");
+       nacionalidade.setText("");
+    }
 
-private void salvar(){
-    
-   if(pessoa.Salvar(p)){
-       JOptionPane.showMessageDialog(rootPane, "Pessoa salva com sucesso");
-   }
-   else{
-       JOptionPane.showMessageDialog(rootPane, "Nao foi possivel fazer o cadastro");
-   }
-}
+private void salvar() {
+        if (pessoa.Salvar(p)){
+            JOptionPane.showMessageDialog(rootPane, "Cliente cadastrado com sucesso!");
+            limparCampos();
+        } else{
+            
+            JOptionPane.showMessageDialog(rootPane, "NÃO FOI POSSIVEL FAZER O CADASTRO!");
+        }
+    }
 }

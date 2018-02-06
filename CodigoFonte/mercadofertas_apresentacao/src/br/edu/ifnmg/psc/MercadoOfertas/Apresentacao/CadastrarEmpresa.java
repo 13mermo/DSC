@@ -22,7 +22,7 @@ import br.edu.ifnmg.psc.MercadoOfertas.Aplicacao.ViolacaoRegraNegocioException;
 public class CadastrarEmpresa extends javax.swing.JInternalFrame {
 
    EmpresaRepositorio empresa;
-   Empresa e;
+   protected Empresa e;
     public CadastrarEmpresa()throws ClassNotFoundException {
         initComponents();
         e =new Empresa();
@@ -94,6 +94,11 @@ public class CadastrarEmpresa extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(100, 100, 100));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton2.setText("Salvar");
@@ -220,16 +225,23 @@ public class CadastrarEmpresa extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            preencherParametros();
-        } catch (ViolacaoRegraNegocioException | ParseException ex) {
-            Logger.getLogger(CadastrarPessoas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        preencherParametros();
         salvar();
+    } catch (ViolacaoRegraNegocioException ex) {
+       JOptionPane.showMessageDialog(this, ex.getMessage(), "Novo usuário", JOptionPane.ERROR_MESSAGE);
+
+    }  catch (ParseException ex) {
+           Logger.getLogger(CadastrarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -253,23 +265,72 @@ public class CadastrarEmpresa extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 
-private void salvar(){
-    
-   if(empresa.Salvar(e)){
-       JOptionPane.showMessageDialog(rootPane, "Empresa salva com sucesso");
-   }
-   else{
-       JOptionPane.showMessageDialog(rootPane, "Nao foi possivel fazer o cadastro");
-   }
-}
-
     private void preencherParametros() throws ViolacaoRegraNegocioException, ParseException {
+        if (nome.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Nome!");
+       }
+       else{
         e.setNome(nome.getText());
-        e.setTelefone(new Integer(telefone.getText()));
-        e.setCep(cep.getText());
-        e.setBairro(bairro.getText());
-        e.setRua(rua.getText());
-        e.setNumero(new Integer(numero.getText()));
-        e.setCnpj(cnpj.getText());
+       }
+
+       if (telefone.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("telefone!");
+       }
+       else{
+        e.setTelefone(telefone.getText());
+       }
+       
+       if (cep.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Cep!");
+       }
+       else{
+         e.setCep(cep.getText());
+       }
+       
+      if (bairro.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Bairro!");
+       }
+       else{
+         e.setBairro(bairro.getText());
+       }
+        
+        if (rua.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Rua!");
+       }
+       else{
+         e.setRua(rua.getText());
+       }
+        
+         if (numero.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Numero!");
+       }
+       else{
+         e.setNumero(numero.getText());
+       }
+        
+         if (cnpj.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Cnpj!");
+       }
+       else{
+         e.setCnpj(cnpj.getText());
+       }
+    }
+    private void limparCampos() {
+       nome.setText("");
+       numero.setText("");
+       cnpj.setText("");
+       cep.setText("");
+       rua.setText("");
+       bairro.setText("");
+       telefone.setText("");
+    }  
+    private void salvar() {
+        if (empresa.Salvar(e)){
+            JOptionPane.showMessageDialog(rootPane, "Empresa cadastrado com sucesso!");
+            limparCampos();
+        } else{
+            
+            JOptionPane.showMessageDialog(rootPane, "NÃO FOI POSSIVEL FAZER O CADASTRO!");
+        }
     }
 }

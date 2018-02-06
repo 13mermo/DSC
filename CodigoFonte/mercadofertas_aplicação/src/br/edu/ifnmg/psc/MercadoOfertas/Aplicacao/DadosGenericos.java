@@ -14,16 +14,16 @@ import java.util.regex.Pattern;
 public class DadosGenericos implements Entidade{
  protected long id;
  protected String nome;
- protected int telefone;
+ protected String telefone;
  protected String cep;
  protected String bairro;
  protected String rua;
- protected int numero;
+ protected String numero;
  
  public DadosGenericos(){
  }
 
-    public DadosGenericos(long id, String nome, int telefone, String cep, String bairro, String rua, int numero) {
+    public DadosGenericos(long id, String nome, String telefone, String cep, String bairro, String rua, String numero) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -57,11 +57,13 @@ public class DadosGenericos implements Entidade{
 
  
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone)throws ViolacaoRegraNegocioException {
+        if(telefone == null || telefone.isEmpty())
+            throw new ViolacaoRegraNegocioException("O Telefone deve Estar preenchido!");
         this.telefone = telefone;
     }
 
@@ -70,7 +72,7 @@ public class DadosGenericos implements Entidade{
     }
 
     public void setCep(String cep)throws ViolacaoRegraNegocioException {
-        if(cep == null || cep.isEmpty() || cep.length() < 3 || cep.length() > 200)
+        if(cep == null || cep.isEmpty())
             throw new ViolacaoRegraNegocioException("O Cep deve ser preenchido"); 
         this.cep = cep;
     }
@@ -95,11 +97,13 @@ public class DadosGenericos implements Entidade{
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) throws ViolacaoRegraNegocioException{
+        if(numero == null || numero.isEmpty())
+        throw new ViolacaoRegraNegocioException("O numero deve estar preenchido!");
         this.numero = numero;
     }
 
@@ -108,11 +112,11 @@ public class DadosGenericos implements Entidade{
         int hash = 3;
         hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + this.telefone;
+        hash = 59 * hash + Objects.hashCode(this.telefone);
         hash = 59 * hash + Objects.hashCode(this.cep);
         hash = 59 * hash + Objects.hashCode(this.bairro);
         hash = 59 * hash + Objects.hashCode(this.rua);
-        hash = 59 * hash + this.numero;
+        hash = 59 * hash + Objects.hashCode(this.numero);
         return hash;
     }
 
@@ -131,10 +135,10 @@ public class DadosGenericos implements Entidade{
         if (this.id != other.id) {
             return false;
         }
-        if (this.telefone != other.telefone) {
+        if (!Objects.equals(this.telefone, other.telefone)) {
             return false;
         }
-        if (this.numero != other.numero) {
+        if (!Objects.equals(this.numero, other.numero)) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {

@@ -17,7 +17,7 @@ public class Escola extends DadosGenericos implements Entidade{
     private Concurso concurso;
     private Estagio estagio;
 
-    public Escola(long id,String nome,int telefone, String cep,String bairro,String rua,int numero,String cnpj, OfertaEmprego ofertaemprego, Concurso concurso, Estagio estagio) {
+    public Escola(long id,String nome,String telefone, String cep,String bairro,String rua,String numero,String cnpj, OfertaEmprego ofertaemprego, Concurso concurso, Estagio estagio) {
        super(id,nome,telefone,cep,bairro,rua,numero); 
     }
 
@@ -29,7 +29,7 @@ public class Escola extends DadosGenericos implements Entidade{
     }
 
     public void setCnpj(String cnpj) throws ViolacaoRegraNegocioException {
-        if(cnpj == null || cnpj.isEmpty() || cnpj.length() < 5 || cnpj.length() > 200)
+        if(cnpj == null || cnpj.isEmpty())
             throw new ViolacaoRegraNegocioException("O cnpj nao pode ficar sem preencher!");
         this.cnpj = cnpj;
     }

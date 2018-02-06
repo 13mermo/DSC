@@ -76,11 +76,11 @@ public class PessoaFisicaDAO extends DAOGenerico<Pessoa> implements PessoaReposi
     protected void carregaParametros(Pessoa obj, PreparedStatement consulta) {
         try {
           consulta.setString(1, obj.getNome());
-          consulta.setInt(2, obj.getTelefone());
+          consulta.setString(2, obj.getTelefone());
           consulta.setString(3, obj.getCep());
           consulta.setString(4, obj.getBairro());
           consulta.setString(5, obj.getRua());
-          consulta.setInt(6, obj.getNumero());
+          consulta.setString(6, obj.getNumero());
           consulta.setString(7, obj.getCpf().replace(".", "").replace("-", ""));
           consulta.setString(8, obj.getNacionalidade());
         } catch (SQLException ex) {
@@ -99,11 +99,11 @@ public class PessoaFisicaDAO extends DAOGenerico<Pessoa> implements PessoaReposi
         try {
             obj.setId(dados.getLong(1));
             obj.setNome(dados.getString(2));
-            obj.setTelefone(dados.getInt(3));
+            obj.setTelefone(dados.getString(3));
             obj.setCep(dados.getString(4));
             obj.setBairro(dados.getString(5));
             obj.setRua(dados.getString(6));
-            obj.setNumero(dados.getInt(7));
+            obj.setNumero(dados.getString(7));
             obj.setCpf(dados.getString(8));
             obj.setNacionalidade(dados.getString(9));
             return obj;

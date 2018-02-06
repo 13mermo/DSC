@@ -50,10 +50,10 @@ public class AuxilioDAO extends DAOGenerico<Auxilio> implements AuxilioRepositor
         try {
           consulta.setString(1, obj.getNome());
           consulta.setString(2, obj.getEdital());
-          consulta.setInt(3, obj.getQtd());
+          consulta.setString(3, obj.getQtd());
           consulta.setString(4, obj.getDescricao());
         } catch (SQLException ex) {
-            Logger.getLogger(PessoaFisicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuxilioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -77,12 +77,12 @@ public class AuxilioDAO extends DAOGenerico<Auxilio> implements AuxilioRepositor
             obj.setId(dados.getLong(1));
             obj.setNome(dados.getString(2));
             obj.setEdital(dados.getString(3));
-            obj.setQtd(dados.getInt(4));
+            obj.setQtd(dados.getString(4));
             obj.setDescricao(dados.getString(5));
             
             return obj;
         } catch (SQLException | ViolacaoRegraNegocioException ex) {
-            Logger.getLogger(PessoaFisicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuxilioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;    }
     

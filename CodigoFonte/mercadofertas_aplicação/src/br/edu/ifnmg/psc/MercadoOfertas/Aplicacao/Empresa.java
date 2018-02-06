@@ -17,11 +17,8 @@ public class Empresa extends DadosGenericos implements Entidade{
     private Concurso concurso;
     private Estagio estagio;
 
-    public Empresa(String cnpj, OfertaEmprego ofertaemprego, Concurso concurso, Estagio estagio) {
-        this.cnpj = cnpj;
-        this.ofertaemprego = ofertaemprego;
-        this.concurso = concurso;
-        this.estagio = estagio;
+    public Empresa( long id,String nome,String telefone, String cep,String bairro,String rua,String numero,String cnpj, OfertaEmprego ofertaemprego, Concurso concurso, Estagio estagio) {
+       super(id,nome,telefone,cep,bairro,rua,numero);
     }
 
     public Empresa() {

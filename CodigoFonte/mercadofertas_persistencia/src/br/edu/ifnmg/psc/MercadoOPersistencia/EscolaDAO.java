@@ -64,11 +64,11 @@ public class EscolaDAO extends DAOGenerico<Escola> implements EscolaRepositorio 
     protected void carregaParametros(Escola obj, PreparedStatement consulta) {
        try {
           consulta.setString(1, obj.getNome());
-          consulta.setInt(2, obj.getTelefone());
+          consulta.setString(2, obj.getTelefone());
           consulta.setString(3, obj.getCep());
           consulta.setString(4, obj.getBairro());
           consulta.setString(5, obj.getRua());
-          consulta.setInt(6, obj.getNumero());
+          consulta.setString(6, obj.getNumero());
           consulta.setString(7, obj.getCnpj());
         } catch (SQLException ex) {
             Logger.getLogger(PessoaFisicaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,11 +83,11 @@ public class EscolaDAO extends DAOGenerico<Escola> implements EscolaRepositorio 
         try {
             obj.setId(dados.getLong(1));
             obj.setNome(dados.getString(2));
-            obj.setTelefone(dados.getInt(3));
+            obj.setTelefone(dados.getString(3));
             obj.setCep(dados.getString(4));
             obj.setBairro(dados.getString(5));
             obj.setRua(dados.getString(6));
-            obj.setNumero(dados.getInt(7));
+            obj.setNumero(dados.getString(7));
             obj.setCnpj(dados.getString(8));
             return obj;
         } catch (SQLException | ViolacaoRegraNegocioException ex) {

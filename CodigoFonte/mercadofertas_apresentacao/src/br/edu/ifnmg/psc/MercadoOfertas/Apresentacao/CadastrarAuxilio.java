@@ -71,6 +71,12 @@ public class CadastrarAuxilio extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Descrição:");
 
+        descricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descricaoActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Quantidade de Vagas:");
 
         cancelar.setText("Cancelar");
@@ -150,7 +156,7 @@ public class CadastrarAuxilio extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 57, Short.MAX_VALUE))
+                        .addGap(0, 61, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,14 +180,19 @@ public class CadastrarAuxilio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-         try {
-            preencherParametros();
-        } catch (ViolacaoRegraNegocioException ex) {
-            Logger.getLogger(CadastrarPessoas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  try {
+        preencherParametros();
         salvar();
+    } catch (ViolacaoRegraNegocioException ex) {
+       JOptionPane.showMessageDialog(this, ex.getMessage(), "Novo usuário", JOptionPane.ERROR_MESSAGE);
+
+    }
                        
     }//GEN-LAST:event_salvarActionPerformed
+
+    private void descricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descricaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -201,18 +212,46 @@ public class CadastrarAuxilio extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void preencherParametros() throws ViolacaoRegraNegocioException {
-     a.setNome(nome.getText());
-     a.setEdital(edital.getText());
-     a.setQtd(new Integer(qtd.getText()));
-     a.setDescricao(descricao.getText());
+     if (nome.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Nome!");
+       }
+       else{
+        a.setNome(nome.getText());
+       }
+     if (edital.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Edital!");
+       }
+       else{
+        a.setEdital(edital.getText());
+       }
+      if (qtd.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Quantidade!");
+       }
+       else{
+        a.setQtd(qtd.getText());
+       }
+      if (descricao.getText().equals("")) {
+              throw new ViolacaoRegraNegocioException ("Descricao!");
+       }
+       else{
+        a.setDescricao(descricao.getText());
+       }
     }
 
+     private void limparCampos() {
+       nome.setText("");
+       edital.setText("");
+       qtd.setText("");
+       descricao.setText("");
+ 
+    }  
     private void salvar() {
-         if(auxilio.Salvar(a)){
-       JOptionPane.showMessageDialog(rootPane, "Salva com sucesso");
-   }
-   else{
-       JOptionPane.showMessageDialog(rootPane, "Nao foi possivel fazer o cadastro");
-   }
+        if (auxilio.Salvar(a)){
+            JOptionPane.showMessageDialog(rootPane, "Auxilio cadastrado com sucesso!");
+            limparCampos();
+        } else{
+            
+            JOptionPane.showMessageDialog(rootPane, "NÃO FOI POSSIVEL FAZER O CADASTRO!");
+        }
     }
 }
