@@ -9,7 +9,7 @@
 </p>
 
 ## Tecnologias
-
+Sistema desenvolvido na disciplina de Programação de Sistemas Corporativos.
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [Java](https://www.java.com/pt-BR/)
